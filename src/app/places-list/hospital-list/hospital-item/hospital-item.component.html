@@ -1,0 +1,25 @@
+<div class="card">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <h5 class="card-title">{{hospital.name}}</h5>
+      <p *ngIf="locationEnabled" class="card-text">
+        <strong>Distance:&nbsp;</strong>{{hospital.distance | distance}}
+      </p>
+      <p *ngIf="!locationEnabled" class="card-text">
+        No distance, location disabled
+      </p>
+      <p>
+        <br>
+        <strong>Has vaccine:&nbsp;</strong>
+        <i *ngIf="hospital.hasVaccine" class="fas fa-check"></i>
+        <i *ngIf="!hospital.hasVaccine" class="fas fa-times"></i>
+        <br>
+        <strong>Infected number:&nbsp;</strong>
+        <i *ngIf="hospital.infectedNumber > 0" class="fas fa-biohazard">{{hospital.infectedNumber}}</i>
+        <i *ngIf="hospital.infectedNumber == 0" class="fas fa-pump-medical">{{hospital.infectedNumber}}</i>
+      </p>
+      <a target="__blank"
+        href="https://www.google.com/maps/place/{{hospital.latitude}},{{hospital.longitude}}"
+        class="btn btn-primary">How to get here</a>
+    </div>
+  </div>

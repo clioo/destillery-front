@@ -1,0 +1,16 @@
+<div class="container">
+    <h2 class="text-center">Laboratories available</h2>
+    <div class="row">
+        <app-laboratory-item 
+        class="col-6"
+        *ngFor="let laboratory of laboratories; let i = index"
+        [laboratory]="laboratory"
+        [index]="i"
+        [locationEnabled]="locationEnabled"></app-laboratory-item>
+    </div>
+    <hr>
+    <app-search
+    [searchLabs]="true"
+    [searchHospitals]="true"
+    ></app-search>
+</div>

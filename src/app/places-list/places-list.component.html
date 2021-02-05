@@ -1,0 +1,13 @@
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+<div *ngIf="!loading" class="container">
+    <h1 *ngIf="locationEnabled">Nearest laboratories and hospitals from
+        <strong>{{userLocation.street}}, {{userLocation.city}}</strong>
+    </h1>
+    <h1 *ngIf="!locationEnabled">Geolocation blocked, you can't see distances.
+    </h1>
+
+    <app-hospital-list></app-hospital-list>
+    <hr>
+    <app-laboratory-list></app-laboratory-list>
+
+</div>

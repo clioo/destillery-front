@@ -1,0 +1,15 @@
+<div class="container">
+    <h2 class="text-center">Hospitals available <i class="fas fa-hospital"></i></h2>
+    <div class="row">
+        <app-hospital-item 
+        class="col-6"
+        *ngFor="let hospital of hospitals; let i = index"
+        [hospital]="hospital"
+        [index]="i"
+        [locationEnabled]="locationEnabled"></app-hospital-item>
+    </div>
+    <hr>
+    <app-search
+    [searchHospitals]="true"
+    ></app-search>
+</div>

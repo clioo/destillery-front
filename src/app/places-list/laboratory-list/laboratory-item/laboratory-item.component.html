@@ -1,0 +1,21 @@
+<div class="card">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <h5 class="card-title">{{laboratory.name}}</h5>
+      <p *ngIf="locationEnabled" class="card-text">
+        <strong>Distance:&nbsp;</strong>{{laboratory.distance | distance}}
+      </p>
+      <p *ngIf="!locationEnabled" class="card-text">
+        No distance, location disabled
+      </p>
+      <p>
+        <br>
+        <strong>Has covid tests:&nbsp;</strong>
+        <i *ngIf="laboratory.hasCovidTests" class="fas fa-check"></i>
+        <i *ngIf="!laboratory.hasCovidTests" class="fas fa-times"></i>
+      </p>
+      <a target="__blank"
+        href="https://www.google.com/maps/place/{{laboratory.latitude}},{{laboratory.longitude}}"
+        class="btn btn-primary">How to get here</a>
+    </div>
+  </div>
