@@ -19,24 +19,23 @@ export class HospitalService {
     return this.hospitals[index];
   }
 
-  addHospital(hospital:Hospital){
+  addHospital(hospital: Hospital) {
     this.hospitals.push(hospital);
-    this.hospitalChanged.next(this.hospitals.slice())
-  }
-
-  updateHospital(index:number, newHospital:Hospital){
-    this.hospitals[index] = newHospital;
-    this.hospitalChanged.next(this.hospitals.slice())
-  }
-
-  deleteHospital(index:number) {
-    this.hospitals.splice(index, 1);
-    this.hospitalChanged.next(this.hospitals.slice())
-  }
-
-  setHospitals(hospitals: Hospital[]){
-    this.hospitals = hospitals;
     this.hospitalChanged.next(this.hospitals.slice());
   }
 
+  updateHospital(index: number, newHospital: Hospital) {
+    this.hospitals[index] = newHospital;
+    this.hospitalChanged.next(this.hospitals.slice());
+  }
+
+  deleteHospital(index: number) {
+    this.hospitals.splice(index, 1);
+    this.hospitalChanged.next(this.hospitals.slice());
+  }
+
+  setHospitals(hospitals: Hospital[]) {
+    this.hospitals = hospitals;
+    this.hospitalChanged.next(this.hospitals.slice());
+  }
 }

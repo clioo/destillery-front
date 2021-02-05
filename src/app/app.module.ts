@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { AppRoutingModule } from './app-routing.module';  
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component'
+import { AppRoutingModule } from './app-routing.module';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { PlacesListComponent } from './places-list/places-list.component';
 import { HospitalListComponent } from './places-list/hospital-list/hospital-list.component';
 import { LaboratoryListComponent } from './places-list/laboratory-list/laboratory-list.component';
@@ -16,6 +16,9 @@ import { LaboratoryService } from './places-list/laboratory-list/laboratory.serv
 import { LaboratoryItemComponent } from './places-list/laboratory-list/laboratory-item/laboratory-item.component';
 import { DistancePipe } from './places-list/distance.pipe';
 import { SearchComponent } from './shared/search/search.component';
+import { AppState } from './Redux/Reducer';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { SearchComponent } from './shared/search/search.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxsModule.forRoot([
+      AppState
+    ], { developmentMode: !environment.production }),
   ],
   providers: [HospitalService, LaboratoryService],
   bootstrap: [AppComponent],

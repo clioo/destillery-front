@@ -19,24 +19,23 @@ export class LaboratoryService {
     return this.laboratories[index];
   }
 
-  addLaboratory(laboratory:Laboratory){
+  addLaboratory(laboratory: Laboratory) {
     this.laboratories.push(laboratory);
-    this.laboratoryChanged.next(this.laboratories.slice())
-  }
-
-  updateLaboratory(index:number, newLaboratory:Laboratory){
-    this.laboratories[index] = newLaboratory;
-    this.laboratoryChanged.next(this.laboratories.slice())
-  }
-
-  deleteLaboratory(index:number) {
-    this.laboratories.splice(index, 1);
-    this.laboratoryChanged.next(this.laboratories.slice())
-  }
-
-  setLaboratories(laboratories: Laboratory[]){
-    this.laboratories = laboratories;
     this.laboratoryChanged.next(this.laboratories.slice());
   }
 
+  updateLaboratory(index: number, newLaboratory: Laboratory) {
+    this.laboratories[index] = newLaboratory;
+    this.laboratoryChanged.next(this.laboratories.slice());
+  }
+
+  deleteLaboratory(index: number) {
+    this.laboratories.splice(index, 1);
+    this.laboratoryChanged.next(this.laboratories.slice());
+  }
+
+  setLaboratories(laboratories: Laboratory[]) {
+    this.laboratories = laboratories;
+    this.laboratoryChanged.next(this.laboratories.slice());
+  }
 }

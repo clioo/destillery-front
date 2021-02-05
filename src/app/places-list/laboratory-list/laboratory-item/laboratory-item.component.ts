@@ -4,15 +4,13 @@ import { Laboratory } from '../laboratory.model';
 @Component({
   selector: 'app-laboratory-item',
   templateUrl: './laboratory-item.component.html',
-  styleUrls: ['./laboratory-item.component.css']
+  styleUrls: ['./laboratory-item.component.css'],
 })
 export class LaboratoryItemComponent implements OnInit {
   @Input() laboratory: Laboratory;
   @Input() index: number;
   @Input() locationEnabled: number;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

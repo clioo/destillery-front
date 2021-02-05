@@ -1,3 +1,4 @@
+import { AppStateService } from './../../Redux/AppState.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from '../../shared/data-storage.service';
@@ -9,52 +10,46 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-hospital-list',
   templateUrl: './hospital-list.component.html',
-  styleUrls: ['./hospital-list.component.css']
+  styleUrls: ['./hospital-list.component.css'],
 })
 export class HospitalListComponent implements OnInit, OnDestroy {
-
   hospitals: Hospital[];
   locationEnabled = false;
   userLocation: Location;
   loading = true;
   private hospitalSubscription: Subscription;
-
-  constructor(private hospitalService: HospitalService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private dataStorageService: DataStorageService) { }
+  subAppState: Subscription;
+  constructor(
+    private hospitalService: HospitalService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private dataStorageService: DataStorageService,
+    private ass: AppStateService
+  ) {}
 
   ngOnInit() {
-    if(navigator.permissions){
-      navigator.permissions.query({ name: 'geolocation' })
-        .then((permission) => {
-          if (permission.state == 'denied') {
-            this.loading = false;
-            this.locationEnabled = false;
-          } else {
-            this.locationEnabled = true;
-            this.dataStorageService.getLocation().then(location => {
-              this.dataStorageService
-                .getReversedGeolocation(location.latitude, location.longitude).toPromise().then((res) => {
-                  this.userLocation = res;
-                  this.loading = false;
-                });
-            });
-          }
-        });
-    }
-
+    this.subAppState = this.ass.db.subscribe(appState => {
+      if (appState.CurrentLocation) {
+        this.locationEnabled = appState.CurrentLocation.locationEnabled;
+        this.userLocation = JSON.parse(JSON.stringify(appState.CurrentLocation));
+        delete this.userLocation.locationEnabled; // It's not necesary
+        this.loading = false;
+      }
+    });
     this.hospitals = this.hospitalService.getHospitals();
-    this.hospitalSubscription = this.hospitalService.hospitalChanged
-      .subscribe(
-        (hospitals: Hospital[]) => {
-          this.hospitals = hospitals;
-        }
-      );
+    this.hospitalSubscription = this.hospitalService.hospitalChanged.subscribe(
+      (hospitals: Hospital[]) => {
+        this.hospitals = hospitals;
+      }
+    );
   }
 
   ngOnDestroy() {
-    this.hospitalSubscription.unsubscribe();
+    if (this.hospitalSubscription) {
+      this.hospitalSubscription.unsubscribe();
+    }
+    if (this.subAppState) {
+      this.subAppState.unsubscribe();
+    }
   }
-
 }

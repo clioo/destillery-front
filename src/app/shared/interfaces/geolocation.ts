@@ -1,7 +1,8 @@
 export interface Location {
-    address?: string,
-    street?: string,
-    city?: string,
-    latitude?: number,
-    longitude?: number
+  address?: string;
+  street?: string;
+  city?: string;
+  latitude?: number;
+  longitude?: number;
+  locationEnabled?: boolean;
 }
